@@ -1,0 +1,15 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "app-shell": "apps/app-shell",
+    "category": "apps/category",
+    "purchase": "apps/purchase",
+    "custom-hooks": "libs/custom-hooks",
+    "mocks": "libs/mocks",
+    "featured": "apps/featured",
+    "marketplace": "apps/marketplace",
+    "ui": "libs/ui",
+    "utils": "libs/utils"
+  }
+}

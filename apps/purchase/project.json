@@ -1,0 +1,102 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/purchase/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/web:webpack",
+      "outputs": [
+        "{options.outputPath}"
+      ],
+      "defaultConfiguration": "production",
+      "options": {
+        "compiler": "babel",
+        "outputPath": "dist/apps/purchase",
+        "index": "apps/purchase/src/index.html",
+        "baseHref": "/",
+        "main": "apps/purchase/src/main.ts",
+        "polyfills": "apps/purchase/src/polyfills.ts",
+        "tsConfig": "apps/purchase/tsconfig.app.json",
+        "assets": [
+          "apps/purchase/src/favicon.ico",
+          "apps/purchase/src/assets"
+        ],
+        "styles": [
+          "apps/purchase/src/styles.css"
+        ],
+        "scripts": [],
+        "webpackConfig": "apps/purchase/webpack.config.js"
+      },
+      "configurations": {
+        "development": {
+          "extractLicenses": false,
+          "optimization": false,
+          "sourceMap": true,
+          "vendorChunk": true
+        },
+        "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/purchase/src/environments/environment.ts",
+              "with": "apps/purchase/src/environments/environment.prod.ts"
+            }
+          ],
+          "optimization": true,
+          "outputHashing": "all",
+          "sourceMap": false,
+          "namedChunks": false,
+          "extractLicenses": true,
+          "vendorChunk": false
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/react:module-federation-dev-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "purchase:build",
+        "hmr": true,
+        "port": 4202
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "purchase:build:development"
+        },
+        "production": {
+          "buildTarget": "purchase:build:production",
+          "hmr": false
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": [
+        "{options.outputFile}"
+      ],
+      "options": {
+        "lintFilePatterns": [
+          "apps/purchase/**/*.{ts,tsx,js,jsx}"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": [
+        "coverage/apps/purchase"
+      ],
+      "options": {
+        "jestConfig": "apps/purchase/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "serve-static": {
+      "executor": "@nrwl/web:file-server",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "purchase:build",
+        "port": 4202
+      }
+    }
+  },
+  "tags": []
+}
